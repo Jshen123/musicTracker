@@ -35,9 +35,20 @@ function handleRender(req, res) {
   // Create a theme instance.
   const theme = createMuiTheme({
     palette: {
-      primary: green,
-      accent: red,
-      type: 'light',
+      primary: {
+        light: '#757575',
+        main: '#a4a4a4',
+        dark: '#494949',
+        contrastText: '#ffffff',
+      },
+      secondary: {
+        light: '#263238',
+        main: '#a4a4a4',
+        dark: '#494949',
+        contrastText: '#ffffff',
+      },
+      // accent: red,
+      // type: 'light',
     },
   });
 

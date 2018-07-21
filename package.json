@@ -17,6 +17,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-jss": "latest",
+    "react-router-dom": "^4.3.1",
     "webpack": "latest",
     "webpack-cli": "latest"
   },

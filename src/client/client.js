@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { hydrate } from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 import App from './App.js';
 
-class Main extends React.Component {
+class Main extends Component {
   // Remove the server-side injected CSS.
   componentDidMount() {
     const jssStyles = document.getElementById('jss-server-side');
@@ -22,9 +22,20 @@ class Main extends React.Component {
 // Create a theme instance.
 const theme = createMuiTheme({
   palette: {
-    primary: green,
-    accent: red,
-    type: 'light',
+    primary: {
+      light: '#757575',
+      main: '#a4a4a4',
+      dark: '#494949',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      light: '#263238',
+      main: '#a4a4a4',
+      dark: '#494949',
+      contrastText: '#ffffff',
+    },
+    // accent: red,
+    // type: 'light',
   },
 });
 
