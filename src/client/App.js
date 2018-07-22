@@ -1,75 +1,9 @@
-// import React, {Component} from 'react';
-// import Button from '@material-ui/core/Button';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogTitle from '@material-ui/core/DialogTitle';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import Typography from '@material-ui/core/Typography';
-// import { withStyles } from '@material-ui/core/styles';
-
-// const styles = theme => ({
-//   root: {
-//     textAlign: 'center',
-//     paddingTop: theme.spacing.unit * 20,
-//   },
-// });
-
-// class App extends React.Component {
-//   state = {
-//     open: false,
-//   };
-
-//   handleClose = () => {
-//     this.setState({
-//       open: false,
-//     });
-//   };
-
-//   handleClick = () => {
-//     this.setState({
-//       open: true,
-//     });
-//   };
-
-//   render() {
-//     const { classes } = this.props;
-//     const { open } = this.state;
-
-//     return (
-//       <div className={classes.root}>
-//         <Dialog open={open} onClose={this.handleClose}>
-//           <DialogTitle>Super Secret Password</DialogTitle>
-//           <DialogContent>
-//             <DialogContentText>1-2-3-4-5</DialogContentText>
-//           </DialogContent>
-//           <DialogActions>
-//             <Button color="primary" onClick={this.handleClose}>
-//               OK
-//             </Button>
-//           </DialogActions>
-//         </Dialog>
-//         <Typography variant="display1" gutterBottom>
-//           Material-UI
-//         </Typography>
-//         <Typography variant="subheading" gutterBottom>
-//           example project
-//         </Typography>
-//         <Button variant="contained" color="secondary" onClick={this.handleClick}>
-//           Super Secret Password
-//         </Button>
-//       </div>
-//     );
-//   }
-// }
-
-// export default withStyles(styles)(App);
-
-import React, {Component, Fragment} from 'react';
-import {BrowserRouter, Switch, Route } from 'react-router-dom'
+import React, {Component} from 'react';
+import {Switch, Route } from 'react-router-dom'
 import { NavBar } from './layouts'
-// import Main from './main'
-
+import PlaylistTable from './components/PlaylistTable'
+import SongForm from './components/SongForm'
+import Login from './components/Login'
 
 class App extends Component {
   constructor(props){
@@ -83,9 +17,13 @@ class App extends Component {
 
   render() {
     return (
-        <NavBar>
-          {/* <Main /> */}
-        </NavBar>
+      <NavBar>
+        <Switch>
+          <Route path="/login" render={() => <Login />}/>
+          <Route path="/playlists" render={() => <PlaylistTable />}/>
+          <Route path="/songs" render={() => <SongForm />}/>
+        </Switch>
+      </NavBar>
     )
   }
 

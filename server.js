@@ -1,3 +1,7 @@
+"use strict";
+
+require('dotenv').config();
+
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -8,9 +12,27 @@ import {
   createMuiTheme,
   createGenerateClassName,
 } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
+import {StaticRouter} from 'react-router-dom'
 import App from './src/client/App';
+
+// middle-ware
+import bodyParser from "body-parser";
+import cookieSess from 'cookie-session';
+
+import knexConfig from "./knexfile";
+import db from "./lib/db.js";
+
+//debug and dev tools
+import logger from 'winston'
+import morgan from 'morgan';
+import knexLogger from 'knex-logger';
+
+const ENV = process.env.ENV || "development";
+const knex = require("knex")(knexConfig[ENV]);
+
+// Seperated Routes for each Resource
+const queries = require("./lib/queries.js")(db);
+const Routes = require("./routes/routes")(queries);
 
 function renderFullPage(html, css) {
   return `
@@ -36,8 +58,8 @@ function handleRender(req, res) {
   const theme = createMuiTheme({
     palette: {
       primary: {
-        light: '#757575',
-        main: '#a4a4a4',
+        light: '#a4a4a4',
+        main: '#757575',
         dark: '#494949',
         contrastText: '#ffffff',
       },
@@ -47,20 +69,25 @@ function handleRender(req, res) {
         dark: '#494949',
         contrastText: '#ffffff',
       },
-      // accent: red,
-      // type: 'light',
+      background: {
+        paper: '#E1E2E1',
+        default: '#E1E2E1',
+      },
     },
   });
 
   const generateClassName = createGenerateClassName();
 
+  const context = {}
   // Render the component to a string.
   const html = renderToString(
-    <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-      <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
-        <App />
-      </MuiThemeProvider>
-    </JssProvider>,
+    <StaticRouter location={req.url}context={context}>
+      <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+        <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
+          <App />
+        </MuiThemeProvider>
+      </JssProvider>
+    </StaticRouter>,
   );
 
   // Grab the CSS from our sheetsRegistry.
@@ -70,12 +97,27 @@ function handleRender(req, res) {
   res.send(renderFullPage(html, css));
 }
 
+
+// app
 const app = express();
 
 app.use('/build', express.static('build'));
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Mount all resource routes
+app.use("/", Routes);
+
 // This is fired every time the server side receives a request.
 app.use(handleRender);
+
+// Load the logger first so all (static) HTTP requests are logged to STDOUT
+// 'dev' = Concise output colored by response status for development use.
+//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+app.use(morgan('dev'));
+
+// Log knex SQL queries to STDOUT as well
+app.use(knexLogger(knex));
 
 const port = 3000;
 app.listen(port);

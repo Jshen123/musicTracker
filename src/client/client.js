@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { hydrate } from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
 import App from './App.js';
+import {BrowserRouter} from 'react-router-dom'
+
 
 class Main extends Component {
   // Remove the server-side injected CSS.
@@ -23,8 +23,8 @@ class Main extends Component {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#757575',
-      main: '#a4a4a4',
+      light: '#a4a4a4',
+      main: '#757575',
       dark: '#494949',
       contrastText: '#ffffff',
     },
@@ -34,14 +34,18 @@ const theme = createMuiTheme({
       dark: '#494949',
       contrastText: '#ffffff',
     },
-    // accent: red,
-    // type: 'light',
+    background: {
+      paper: '#E1E2E1',
+      default: '#E1E2E1',
+    },
   },
 });
 
 hydrate(
-  <MuiThemeProvider theme={theme}>
-    <Main />
-  </MuiThemeProvider>,
+  <BrowserRouter>
+    <MuiThemeProvider theme={theme}>
+      <Main />
+    </MuiThemeProvider>
+  </BrowserRouter>,
   document.querySelector('#root'),
 );

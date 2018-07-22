@@ -35,12 +35,12 @@ class NestedList extends Component {
         <List
           component="nav"
         >
-          <ListItem>
+          {/* <ListItem>
             <ListItemText 
               disableTypography
               primary={<Typography type="subheadling" style={{ color: 'white' }}>Favourite</Typography>} 
             />
-          </ListItem>
+          </ListItem> */}
           <ListItem button onClick={this.handleClick}>
             <ListItemText 
                 disableTypography

@@ -53,53 +53,51 @@ class PlaylistTable extends Component{
           <TableHead>
             <TableRow>
               <TableCell className ={classes.tc}>
-                <Typography variant="inherit" align='left' style={{ color: '#757575'}} noWrap>
+                <Typography align='left' style={{ color: '#757575'}} noWrap>
                   TITLE
                 </Typography>
               </TableCell>
               <TableCell className ={classes.tc}>
-                <Typography variant="inherit" align='right' style={{color: '#757575'}} noWrap>
+                <Typography align='right' style={{color: '#757575'}} noWrap>
                   ARTIST
                 </Typography>
               </TableCell>
               <TableCell className ={classes.tc}>
-                <Typography variant="inherit" align='right' style={{color: '#757575'}} noWrap>
+                <Typography align='right' style={{color: '#757575'}} noWrap>
                   ALBUM
                 </Typography>
               </TableCell>
               <TableCell className ={classes.tc}>
-                <Typography variant="inherit" align='right' style={{color: '#757575'}} noWrap>
+                <Typography align='right' style={{color: '#757575'}} noWrap>
                   RELEASE DATE
                 </Typography>
               </TableCell>
             </TableRow>
-            
           </TableHead>
           <TableBody>
             {this.state.data.map(n => {
               return (
                 <TableRow key={n.id}>
                   <TableCell className ={classes.tc} component="th" scope="row">
-                    <Typography variant="inherit" align='left' style={{color: '#4b4b4b'}} noWrap>
+                    <Typography align='left' style={{color: '#4b4b4b'}} noWrap>
                       {n.title}
                     </Typography>
                   </TableCell >
                   <TableCell className ={classes.tc}>
-                    <Typography variant="inherit" align='right' style={{color: '#4b4b4b'}} noWrap>
+                    <Typography align='right' style={{color: '#4b4b4b'}} noWrap>
                       {n.artist}
                     </Typography>
                   </TableCell >
                   <TableCell className ={classes.tc}>
-                    <Typography variant="inherit" align='right' style={{color: '#4b4b4b'}} noWrap>
+                    <Typography align='right' style={{color: '#4b4b4b'}} noWrap>
                       {n.album}
                     </Typography>
                   </TableCell>
                   <TableCell className ={classes.tc}>
-                    <Typography variant="inherit" align='right' style={{color: '#4b4b4b'}} noWrap>
+                    <Typography align='right' style={{color: '#4b4b4b'}} noWrap>
                       {n.date}
                     </Typography>
                   </TableCell>
-                  <Divider />
                 </TableRow>
               );
             })}

@@ -3,7 +3,8 @@ import {
   AppBar, Toolbar, IconButton, Typography, Hidden, Button,
   Drawer, Divider, CssBaseline
 } from '@material-ui/core'
-import {Menu} from '@material-ui/icons'
+import { Menu } from '@material-ui/icons'
+import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import NestedList from './NestedList.js'
@@ -49,21 +50,11 @@ const styles = theme => ({
 class NavBar extends Component {
   constructor(props){
     super(props);
-    this.state ={
-      mobileOpen: false
-    }
+    this.state ={}
   };
-
-  handleDrawerToggle = () => {
-    this.setState(({ mobileOpen: !this.state.mobileOpen }));
-    console.log(this.state.mobileOpen)
-    console.log("hello")
-  };
-
 
   render() {
     const { classes, children } = this.props;
-    const {mobileOpen} = this.state.mobileOpen;
 
     const drawer = (
         <Grid container style={{backgroundColor: 'black'}}>
@@ -91,9 +82,15 @@ class NavBar extends Component {
                 >
                   <Menu />
                 </IconButton>
+                <Grid container alignItems='center' direction='row' justify='flex-start'>
+                  <Button variant="outlined" color="inherit" style={{borderWidth:'1pt', borderColor: 'white', borderRadius: 0}}>
+                    <AddIcon />
+                    Create Playlist
+                  </Button>
+                </Grid>
                 <Grid container alignItems='center' direction='row' justify='flex-end'>
                   <Button color="inherit">Login</Button>
-               </Grid>
+                </Grid>
               </Toolbar>
             </AppBar>
             <Drawer

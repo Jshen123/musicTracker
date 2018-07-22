@@ -11,8 +11,13 @@
     "@material-ui/core": "^1.4.0",
     "@material-ui/icons": "^1.1.0",
     "babel-loader": "next",
+    "body-parser": "^1.18.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "knex": "^0.15.2",
     "nodemon": "latest",
+    "pg": "^7.4.3",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
@@ -26,6 +31,9 @@
   },
   "devDependencies": {
     "eslint": "^5.2.0",
-    "eslint-plugin-react": "^7.10.0"
+    "eslint-plugin-react": "^7.10.0",
+    "winston": "^3.0.0",
+    "knex-logger": "^0.1.0",
+    "morgan": "^1.9.0"
   }
 }
