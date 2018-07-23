@@ -50,8 +50,10 @@ const styles = theme => ({
 class NavBar extends Component {
   constructor(props){
     super(props);
-    this.state ={}
+    this.state ={
+    }
   };
+
 
   render() {
     const { classes, children } = this.props;
@@ -89,7 +91,9 @@ class NavBar extends Component {
                   </Button>
                 </Grid>
                 <Grid container alignItems='center' direction='row' justify='flex-end'>
-                  <Button color="inherit">Login</Button>
+                  <Button color="inherit">
+                    {this.props.loggedIn? 'Logout' : 'Login'}
+                  </Button>
                 </Grid>
               </Toolbar>
             </AppBar>

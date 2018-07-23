@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import axios from 'axios'
 import { List, ListItem, ListItemText, Collapse, Typography } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { withStyles } from '@material-ui/core/styles';
@@ -19,13 +20,44 @@ class NestedList extends Component {
     super(props);
     this.state ={
       open: true,
-      playlists: ["p1", "p2"]
+      playlists:[],
+      targetId: 0
     }
   };
+
+  componentDidMount(){
+    axios.get('/api/playlists').then(res =>{
+      this.setState({playlists: res.data})
+    })
+  }
+
+  // handleHover = () => {
+  //   this.setState
+
+  // }
 
   handleClick = () => {
     this.setState({ open: !this.state.open });
   };
+
+  hoverTarget = (i) => {
+    this.setState({targetId: i})
+  }
+
+  playlistSelect = (i) => {
+    // this.setState({password: event.target.value});
+    // this.setState({targetId: i})
+
+    axios.get(`api/playlists/${this.state.targetId}`)
+    .then((response) => {
+      if (response) {
+        window.location = `/playlists/${this.state.targetId}`;
+      } 
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   render() {
     const { classes } = this.props;
@@ -35,12 +67,6 @@ class NestedList extends Component {
         <List
           component="nav"
         >
-          {/* <ListItem>
-            <ListItemText 
-              disableTypography
-              primary={<Typography type="subheadling" style={{ color: 'white' }}>Favourite</Typography>} 
-            />
-          </ListItem> */}
           <ListItem button onClick={this.handleClick}>
             <ListItemText 
                 disableTypography
@@ -50,18 +76,16 @@ class NestedList extends Component {
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
+            {this.state.playlists.map((n, i) => {
+              return (
+              <ListItem key={i} id={n.playlist_id} onMouseOver={()=>this.hoverTarget(n.playlist_id)} onClick={this.playlistSelect} button className={classes.nested}>
                 <ListItemText 
                   disableTypography
-                  primary={<Typography type="subheadling" style={{ color: 'white' }}>{this.state.playlists[0]}</Typography>} 
+                  primary={<Typography type="subheadling" style={{ color: 'white' }}>{n.playlist_name}</Typography>} 
                 />
               </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText 
-                    disableTypography
-                    primary={<Typography type="subheadling" style={{ color: 'white' }}>{this.state.playlists[0]}</Typography>} 
-                />
-              </ListItem>
+              );
+            })}
             </List>
           </Collapse>
         </List>

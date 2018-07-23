@@ -41,6 +41,12 @@ class PlaylistTable extends Component{
     }
   }
 
+  // componentDidMount(){
+  //   axios.get('/api/playlists').then(res =>{
+  //     console.log(res)
+  //   })
+  // }
+
   render() {
     const { classes } = this.props;
 

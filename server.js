@@ -103,6 +103,7 @@ const app = express();
 
 app.use('/build', express.static('build'));
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Mount all resource routes
@@ -113,7 +114,7 @@ app.use(handleRender);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+// The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
