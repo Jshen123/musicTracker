@@ -104,7 +104,7 @@ class NavBar extends Component {
               }}
             >
               {drawer}
-              <NestedList />
+              <NestedList hoverTarget={this.props.hoverTarget} playlistSelect = {this.props.playlistSelect} />
             </Drawer>
           <main className={classes.content}>
             <div className={classes.toolbar}/>

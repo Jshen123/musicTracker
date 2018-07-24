@@ -3,6 +3,7 @@ import axios from 'axios'
 import { List, ListItem, ListItemText, Collapse, Typography } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { withStyles } from '@material-ui/core/styles';
+import {withRouter} from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -31,11 +32,6 @@ class NestedList extends Component {
     })
   }
 
-  // handleHover = () => {
-  //   this.setState
-
-  // }
-
   handleClick = () => {
     this.setState({ open: !this.state.open });
   };
@@ -44,19 +40,9 @@ class NestedList extends Component {
     this.setState({targetId: i})
   }
 
-  playlistSelect = (i) => {
-    // this.setState({password: event.target.value});
-    // this.setState({targetId: i})
-
-    axios.get(`api/playlists/${this.state.targetId}`)
-    .then((response) => {
-      if (response) {
-        window.location = `/playlists/${this.state.targetId}`;
-      } 
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  playlistSelect = () => {
+    window.location= `/playlists/${this.state.targetId}`
+    // this.props.history.push(`/playlists/${this.state.targetId}`)
   }
 
   render() {
@@ -78,7 +64,7 @@ class NestedList extends Component {
             <List component="div" disablePadding>
             {this.state.playlists.map((n, i) => {
               return (
-              <ListItem key={i} id={n.playlist_id} onMouseOver={()=>this.hoverTarget(n.playlist_id)} onClick={this.playlistSelect} button className={classes.nested}>
+              <ListItem key={i} id={n.playlist_id} onMouseOver={() => this.hoverTarget(n.playlist_id)} onClick={this.playlistSelect} button className={classes.nested}>
                 <ListItemText 
                   disableTypography
                   primary={<Typography type="subheadling" style={{ color: 'white' }}>{n.playlist_name}</Typography>} 
@@ -94,4 +80,4 @@ class NestedList extends Component {
   }
 }
 
-export default withStyles(styles)(NestedList);
+export default withRouter(withStyles(styles)(NestedList));

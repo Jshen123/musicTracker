@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles';
 import { 
   Table, TableBody, TableCell, TableHead, TableRow,
   Paper, Typography, Divider
 } from '@material-ui/core';
+import {withRouter} from "react-router-dom";
 
 
 const styles = theme => ({
@@ -21,38 +23,27 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(title, artist, album, date) {
-  id += 1;
-  return { id, title, artist, album, date };
-}
-
 class PlaylistTable extends Component{
   constructor(props){
     super(props);
     this.state ={
-      data: [
-        createData('Frozen yoghurt', 'artist1', 'album1', 'Jan-01-18'),
-        createData('Ice cream sandwich', 'artist2', 'album2', 'Jan-02-18'),
-        createData('Eclair', 'artist3', 'album3', 'Jan-03-18'),
-        createData('Cupcake', 'artist4', 'album4', 'Jan-04-18'),
-        createData('Gingerbread', 'artist5', 'album5', 'Jan-05-18'),
-      ]
+    songs: this.props.songs
     }
   }
 
-  // componentDidMount(){
-  //   axios.get('/api/playlists').then(res =>{
-  //     console.log(res)
-  //   })
-  // }
+  componentDidMount(){
+    axios.get(`/api/playlists/${this.props.match.params.id}`).then(res =>{
+      this.setState({songs: res.data})
+    })
+  }
+
 
   render() {
     const { classes } = this.props;
 
     return (
       <Paper className={classes.root}>
-        <Typography variant="headline" style={{ fontWeight: 'bold', color: '#4b4b4b', marginLeft: '1.1em', marginBottom: '1.15em'}} noWrap>
+        <Typography variant="headline" style={{ fontWeight: 'bold', color: '#4b4b4b', marginLeft: '1.1em', marginBottom: '1em'}} noWrap>
           Playlist
         </Typography>
         <Table  className={classes.table}>
@@ -81,27 +72,27 @@ class PlaylistTable extends Component{
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.data.map(n => {
+            {this.state.songs.map((n, i) => {
               return (
-                <TableRow key={n.id}>
+                <TableRow key={i}> 
                   <TableCell className ={classes.tc} component="th" scope="row">
                     <Typography align='left' style={{color: '#4b4b4b'}} noWrap>
-                      {n.title}
+                      {n.song_name}
                     </Typography>
                   </TableCell >
                   <TableCell className ={classes.tc}>
                     <Typography align='right' style={{color: '#4b4b4b'}} noWrap>
-                      {n.artist}
+                      {n.artist_name}
                     </Typography>
                   </TableCell >
                   <TableCell className ={classes.tc}>
                     <Typography align='right' style={{color: '#4b4b4b'}} noWrap>
-                      {n.album}
+                      {n.album_name}
                     </Typography>
                   </TableCell>
                   <TableCell className ={classes.tc}>
                     <Typography align='right' style={{color: '#4b4b4b'}} noWrap>
-                      {n.date}
+                      {n.release_date.substring(0,10)}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -114,4 +105,4 @@ class PlaylistTable extends Component{
   }
 }
 
-export default withStyles(styles)(PlaylistTable);
+export default withRouter(withStyles(styles)(PlaylistTable));

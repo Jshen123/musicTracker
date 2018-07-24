@@ -20,6 +20,7 @@ module.exports = function(DataQueries) {
   router.post("/api/login", (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
+    console.log("login")
 
     DataQueries.existUnamePwd(username, password, (value) => {
       if(value.length == 0){
@@ -34,18 +35,16 @@ module.exports = function(DataQueries) {
     })
   });
 
-  // router.get("/api/playlists/:id", (req, res) => {
-  //   const playlistId = req.params.id
+  router.get("/api/playlists/:id", (req, res) => {
+    console.log("here")
+    const playlistId = req.params.id
 
-  //   DataQueries.getPlaylistSongs(playlistId, (vale)=> {
-  //     res.json(value);
-  //     let redir = {redirect: `playlists/${playlistId}`}
-  //     res.json(redir)
-  //   })
+    DataQueries.getPlaylistSongs(playlistId, (value)=> {
+      console.log(value)
+      res.json(value)
+    })
 
-    // const 
-    // DataQueries.getPlaylistSongs()
-  // });
+  });
 
   router.get("/api/playlists", (req, res) => {
     if(req.session.user_id){

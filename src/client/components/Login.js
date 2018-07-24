@@ -6,6 +6,7 @@ import {
   Input, InputLabel, FormHelperText, FormControl,
   Button, Typography, Grid, 
 } from '@material-ui/core'
+import {withRouter} from "react-router-dom";
 
 const styles = theme => ({
   card: {
@@ -65,9 +66,11 @@ class Login extends Component {
       }
 
       if (response.data.redirect == '/') {
-        window.location = "/";
+        this.props.history.push('/')
+        // window.location = "/";
       } else if (response.data.redirect == '/login'){
-        window.location = "/login"
+        this.props.history.push('/logout')
+        // window.location = "/login"
       }  
     })
     // .catch((error) => {
@@ -121,4 +124,4 @@ class Login extends Component {
   }
 }
 
-export default withStyles(styles)(Login);
+export default withRouter(withStyles(styles)(Login));

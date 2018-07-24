@@ -42,7 +42,7 @@ function renderFullPage(html, css) {
         <title>Material-UI</title>
       </head>
       <body>
-        <script async src="build/bundle.js"></script>
+        <script async src="/build/bundle.js"></script>
         <div id="root">${html}</div>
         <style id="jss-server-side">${css}</style>
       </body>
