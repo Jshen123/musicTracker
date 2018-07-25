@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.string('playlist_name');
     table.integer('user_id').unsigned()
 	  table.foreign('user_id').references("users.user_id").onDelete('cascade');
-  	table.date('create_date');
+    table.timestamp('create_date').defaultTo(knex.fn.now());
   })
 };
 

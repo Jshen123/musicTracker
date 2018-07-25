@@ -4,8 +4,8 @@ exports.up = function(knex, Promise) {
  	table.string('song_name');
 	table.string('artist_name');
 	table.string('album_name');
-	table.date('release_date');
-	table.string('genre');
+  table.string('genre');
+  table.date('release_date');
    })
 };
 

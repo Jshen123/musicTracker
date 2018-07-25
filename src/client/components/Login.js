@@ -61,16 +61,13 @@ class Login extends Component {
       password: this.state.password
     })
     .then((response) => {
-      if (response.data.redirect == '/') { 
-        this.props.toggleLogin()
-      }
 
       if (response.data.redirect == '/') {
-        this.props.history.push('/')
-        // window.location = "/";
+        // this.props.history.push('/')
+        window.location = "/";
       } else if (response.data.redirect == '/login'){
-        this.props.history.push('/logout')
-        // window.location = "/login"
+        // this.props.history.push('/login')
+        window.location = "/login"
       }  
     })
     // .catch((error) => {
@@ -78,13 +75,6 @@ class Login extends Component {
     // });
   }
 
-  // handleLogin = () => {
-  //   if (this.state.loggedIn == true){
-  //     this.props.toggleLogin
-  //   }
-  //   console.log(this.state.loggedIn)
-  // }
-  
 
   render() {
     const { classes } = this.props;

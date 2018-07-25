@@ -3,7 +3,8 @@ import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles';
 import { 
   Table, TableBody, TableCell, TableHead, TableRow,
-  Paper, Typography, Divider
+  Paper, Typography, Divider, Button,
+  Input, FormControl
 } from '@material-ui/core';
 import {withRouter} from "react-router-dom";
 
@@ -27,25 +28,73 @@ class PlaylistTable extends Component{
   constructor(props){
     super(props);
     this.state ={
-    songs: this.props.songs
+      songs: [],
+      playlist_name: "",
+      playlist_id: this.props.match.params.id,
+      number: null
     }
   }
 
   componentDidMount(){
     axios.get(`/api/playlists/${this.props.match.params.id}`).then(res =>{
-      this.setState({songs: res.data})
+      this.setState({songs: res.data.songs})
+      this.setState({playlist_name: res.data.name[0].playlist_name})
+      this.setState({number: res.data.number[0].count})
     })
   }
 
+  onNameChange = (e) => {
+    this.setState({ playlist_name: e.target.value });
+  }
+
+  get onNameKeydown() {
+    return (e) => {
+      if(e.key === 'Enter') {
+        let params = this.props.match.params.id
+
+        axios.put(`/api/playlists/${params}`, {
+          playlist_name: this.state.playlist_name
+        })
+        .then(res => {
+          if(res){
+            // this.props.history.push(`/playlists/${res.data}`)
+            window.location = `${res.data}`
+          }
+        })
+      }
+    };
+  }
+
+  handleClick = () => {
+    this.props.history.push(`${this.state.playlist_id}/song`)
+    // window.location = `${this.state.playlist_id}/songs`
+  }
 
   render() {
     const { classes } = this.props;
 
     return (
       <Paper className={classes.root}>
-        <Typography variant="headline" style={{ fontWeight: 'bold', color: '#4b4b4b', marginLeft: '1.1em', marginBottom: '1em'}} noWrap>
-          Playlist
+         <FormControl required className={classes.formControl} style={{marginLeft: '1em'}}>
+          <Input id="name-simple" 
+                 disableUnderline={true} 
+                 style={{fontSize: '1.6em', fontWeight: 'bold'}}
+                 value={this.state.playlist_name} 
+                 onChange={this.onNameChange} 
+                 onKeyDown={this.onNameKeydown}
+          />
+        </FormControl>
+        <Typography align='left' style={{ marginLeft: '1.5em', color: '#4b4b4b'}} noWrap>
+          {`(${this.state.number} songs)`}
         </Typography>
+        <br />
+        <Button variant="contained" 
+                style={{backgroundColor: '#4cd964', color: "white", borderRadius: 0, marginLeft: '1em', marginBottom: '1em'}} 
+                className={classes.button}
+                onClick={this.handleClick}
+        >
+            Add Song
+        </Button>
         <Table  className={classes.table}>
           <TableHead>
             <TableRow>

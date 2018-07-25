@@ -11,13 +11,9 @@ exports.seed = function(knex, Promise) {
     }).then(() => {
         return knex('playlists').del().then(() => {
           return Promise.all([
-            knex('playlists').insert({playlist_name: 'playlist_1', user_id: 2, create_date: '2016-03-07 10:00:00'})
+            knex('playlists').insert({playlist_name: 'personal songs', user_id: 2, create_date: '2016-03-07 10:00:00'})
             .returning('playlist_id').then(function(ids) {
               return Promise.all([
-                knex('songs').insert({song_name: 'Delicate', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: '...Ready for it?', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'End Game', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'I Did Something Bad', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
                 knex('songs').insert({song_name: 'Don\'t Blame Me', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),      
                 knex('songs').insert({song_name: 'Talking To The Moon', artist_name: 'Bruno Mars', album_name: 'It\'s Better If You Don\'t Understand', release_date: '2010-05-11', genre: 'Pop'}),
                 knex('songs').insert({song_name: 'Catch a Grenade (The Hooligans Remix)', artist_name: 'Bruno Mars', album_name: 'The Grenade Session', release_date: '2011-02-08', genre: 'Pop'}),
@@ -26,52 +22,56 @@ exports.seed = function(knex, Promise) {
                 knex('songs').insert({song_name: 'Grenade (Passion Pit Remix)', artist_name: 'Bruno Mars', album_name: 'The Grenade Session', release_date: '2011-02-08', genre: 'Pop'}),
               ])
             }),
-            knex('playlists').insert({playlist_name: 'playlist_2', user_id: 1, create_date: '2017-03-07 09:00:00'})
+            knex('playlists').insert({playlist_name: 'Liked Song', user_id: 1, create_date: '2017-03-07 09:00:00'})
             .returning('playlist_id').then(function(ids) {
               return Promise.all([
                 knex('songs').insert({song_name: 'Uptown', artist_name: 'Drake', album_name: 'So Far Gone', release_date: '2009-01-19', genre: 'Hip-hop'}),
                 knex('songs').insert({song_name: 'I\'m Goin\' In', artist_name: 'Drake', album_name: 'So Far Gone', release_date: '2009-01-19', genre: 'Hip-hop'}),
                 knex('songs').insert({song_name: 'Calm', artist_name: 'Drake', album_name: 'So Far Gone', release_date: '2009-01-19', genre: 'Hip-hop'}),
                 knex('songs').insert({song_name: 'Fear', artist_name: 'Drake', album_name: 'So Far Gone', release_date: '2009-01-19', genre: 'Hip-hop'}),
-                knex('songs').insert({song_name: 'Somewhere In Brooklyn', artist_name: 'Bruno Mars', album_name: 'It\'s Better If You Don\'t Understand', release_date: '2010-05-11', genre: 'Pop'}),
-                knex('songs').insert({song_name: 'The Other Side', artist_name: 'Bruno Mars', album_name: 'It\'s Better If You Don\'t Understand', release_date: '2010-05-11', genre: 'Pop'}),
-                knex('songs').insert({song_name: 'Count On Me', artist_name: 'Bruno Mars', album_name: 'It\'s Better If You Don\'t Understand', release_date: '2010-05-11', genre: 'Pop'}),
-              ])
-            }),
-            knex('playlists').insert({playlist_name: 'playlist_3', user_id: 1, create_date: '2018-01-05 08:00:00'})
-            .returning('playlist_id').then(function(ids) {
-              return Promise.all([
-                knex('songs').insert({song_name: 'Look What You Made Me Do', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'So it Goes...', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'Gorgeous', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'Getaway Car', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'King of My Heart', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'Dancing With Our Hands Tied', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-              ])
-            }),
-            knex('playlists').insert({playlist_name: 'playlist_4', user_id: 1, create_date: '2018-01-05 08:00:00'})
-            .returning('playlist_id').then(function(ids) {
-              return Promise.all([
-                knex('songs').insert({song_name: 'Look What You Made Me Do', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'So it Goes...', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'Gorgeous', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'Getaway Car', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'King of My Heart', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'Dancing With Our Hands Tied', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-              ])
-            }),
-            knex('playlists').insert({playlist_name: 'playlist_5', user_id: 1, create_date: '2018-03-02 08:00:00'})
-            .returning('playlist_id').then(function(ids) {
-              return Promise.all([
-                knex('songs').insert({song_name: 'Dress', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'This Is Why We Can\'t Have Nice Things', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'Call It What You Want', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
-                knex('songs').insert({song_name: 'New Year\'s Day', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
                 knex('songs').insert({song_name: 'God\'s Plan', artist_name: 'Drake', album_name: 'Scary Hours', release_date: '2018-01-19', genre: 'Hip-hop'}),
                 knex('songs').insert({song_name: 'Diplomatic Immunity', artist_name: 'Drake', album_name: 'Scary Hours', release_date: '2018-01-19', genre: 'Hip-hop'}),
                 knex('songs').insert({song_name: 'Housetatlantavegas', artist_name: 'Drake', album_name: 'So Far Gone', release_date: '2009-09-15', genre: 'Hip-hop'}),
                 knex('songs').insert({song_name: 'Successful', artist_name: 'Drake', album_name: 'So Far Gone', release_date: '2009-01-19', genre: 'Hip-hop'}),
                 knex('songs').insert({song_name: 'Best I Ever Had', artist_name: 'Drake', album_name: 'So Far Gone', release_date: '2009-01-19', genre: 'Hip-hop'}),
+              ])
+            }),
+            knex('playlists').insert({playlist_name: 'Liked Song V.2', user_id: 1, create_date: '2018-01-05 08:00:00'})
+            .returning('playlist_id').then(function(ids) {
+              return Promise.all([
+                knex('songs').insert({song_name: 'Look What You Made Me Do', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'So it Goes...', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'Gorgeous', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'Getaway Car', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'King of My Heart', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'Dancing With Our Hands Tied', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'Delicate', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: '...Ready for it?', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+              ])
+            }),
+            knex('playlists').insert({playlist_name: 'pops', user_id: 1, create_date: '2018-01-05 08:00:00'})
+            .returning('playlist_id').then(function(ids) {
+              return Promise.all([
+                knex('songs').insert({song_name: 'Look What You Made Me Do', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'So it Goes...', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'Gorgeous', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'Getaway Car', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'King of My Heart', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'Dancing With Our Hands Tied', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'End Game', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'I Did Something Bad', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+              ])
+            }),
+            knex('playlists').insert({playlist_name: 'Top Pop Song 2017', user_id: 1, create_date: '2018-03-02 08:00:00'})
+            .returning('playlist_id').then(function(ids) {
+              return Promise.all([
+                knex('songs').insert({song_name: 'Dress', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'Somewhere In Brooklyn', artist_name: 'Bruno Mars', album_name: 'It\'s Better If You Don\'t Understand', release_date: '2010-05-11', genre: 'Pop'}),
+                knex('songs').insert({song_name: 'This Is Why We Can\'t Have Nice Things', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'Call It What You Want', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'New Year\'s Day', artist_name: 'Taylor Swift', album_name: 'Reputation', release_date: '2017-11-10', genre: 'Electricpop'}),
+                knex('songs').insert({song_name: 'The Other Side', artist_name: 'Bruno Mars', album_name: 'It\'s Better If You Don\'t Understand', release_date: '2010-05-11', genre: 'Pop'}),
+                knex('songs').insert({song_name: 'Count On Me', artist_name: 'Bruno Mars', album_name: 'It\'s Better If You Don\'t Understand', release_date: '2010-05-11', genre: 'Pop'}),             
               ])
             })
           ])

@@ -5,6 +5,8 @@ import { NavBar } from './layouts'
 import PlaylistTable from './components/PlaylistTable'
 import SongForm from './components/SongForm'
 import Login from './components/Login'
+import Home from './components/Home'
+import Admin from './components/Admin'
 import {withRouter} from "react-router-dom";
 
 
@@ -13,52 +15,34 @@ class App extends Component {
     super(props);
     this.state = {
       loggedIn: false,
-      songs: [],
-      targetId: 0,
-      counter: true
+      admin: false
     };
   }
-  
-  toggleLogin = () => {
-    this.setState({ loggedIn: true });
+
+  componentDidMount(){
+    axios.get('/api').then(res =>{
+      if (res.data != null){
+        this.setState({loggedIn: true})
+        let status = res.data[0].access
+        if (status == 'admin') {
+          this.setState({admin: true})
+        }
+      } else {
+        this.props.history.push("/login")
+      }
+    })
   }
-
-  // hoverTarget = (i) => {
-  //   this.setState({targetId: i})
-  // }
-
-  // playlistSelect = () => {
-  //   // console.log("targetId ", this.state.targetId)
-
-  //   // axios.get(`api/playlists/${this.state.targetId}`)
-  //   // .then((response) => {
-  //   //   if (response) {
-  //   //     console.log("targetId ", this.state.targetId)
-
-  //   //     // console.log(response.data)
-  //   //     this.setState({songs: response.data})
-  //   //     // window.location = `/playlists/${this.state.targetId}`;
-  //   //     this.props.history.push(`/playlists/${this.state.targetId}`)
-  //   //   } 
-  //   // })
-  //   // .catch(function (error) {
-  //   //   console.log(error);
-  //   // });
-  //   this.props.history.push(`/playlists/${this.state.targetId}`)
-  // }
   
   render() {
+    
     return (
-      <NavBar loggedIn = {this.state.loggedIn} >
+      <NavBar loggedIn = {this.state.loggedIn} admin={this.state.admin} >
         <Switch>
-          <Route exact path="/" render={() => <div> hi </div>}/>
-          <Route path="/login" render={
-            () => <Login loggedIn = {this.state.loggedIn} 
-                         toggleLogin = {this.toggleLogin}
-                  />}
-          />
-          <Route path="/playlists/:id" render={(props) => (<PlaylistTable songs={this.state.songs} />)}/>
-          <Route path="/songs" render={() => <SongForm />}/>
+          <Route exact path="/" render={() => <Home />}/>
+          <Route path="/admin" render={() => <Admin />}/>
+          <Route path="/login" render={() => <Login loggedIn = {this.state.loggedIn} admin={this.state.admin} />}/>
+          <Route exact path="/playlists/:id" render={(props) => (<PlaylistTable />)}/>
+          <Route path="/playlists/:id/song" render={(props) => <SongForm />}/>
         </Switch>
       </NavBar>
     )
