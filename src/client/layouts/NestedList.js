@@ -41,7 +41,7 @@ class NestedList extends Component {
   }
 
   playlistSelect = () => {
-    window.location= `/playlists/${this.state.targetId}`
+    window.location = `/playlists/${this.state.targetId}`
     // this.props.history.push(`/playlists/${this.state.targetId}`)
   }
 

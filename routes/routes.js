@@ -26,14 +26,15 @@ module.exports = function(DataQueries) {
       DataQueries.getUserType(req.session.user_id, (value) => {
         if (value[0].access == 'admin'){
           DataQueries.findNonEmptyPlaylist(0, (value) => {
-            console.log(value)
-          //   let active = value;
-          //   console.log(active)
-            // DataQueries.findEmptyPlaylist((value) => {
-            //   console.log(value)
-            //   // let payload = {active: active, inactive: inactive}
-            //   // console.log(payload)
-            // })
+            // console.log(value)
+            let active = value;
+            // console.log(active)
+            DataQueries.findEmptyPlaylist((value) => {
+              // console.log(value)
+              let inactive = value
+              let payload = {active: active, inactive: inactive}
+              res.json(payload)
+            })
 
           })
         } else {
@@ -107,6 +108,19 @@ module.exports = function(DataQueries) {
       // console.log(req.body.playlist_name)
       DataQueries.updatePlaylistName( playlist_id, req.body.playlist_name, (value) => {
         res.json(playlist_id)
+      });
+    } else {
+      res.status(400)
+    }
+  });
+
+  router.delete("/api/playlists/:id", (req, res) => {
+    console.log(req.params.id)
+    if(req.session.user_id){
+      // console.log(req.params.id == string)
+      // console.log(req.body.playlist_name)
+      DataQueries.deletePlaylist( req.params.id, (value) => {
+        res.send(200)
       });
     } else {
       res.status(400)
